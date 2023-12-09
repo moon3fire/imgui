@@ -3834,11 +3834,10 @@ void ImGui::GcAwakeTransientWindowBuffers(ImGuiWindow* window)
 void ImGui::SetActiveID(ImGuiID id, ImGuiWindow* window)
 {
     ImGuiContext& g = *GImGui;
-
-
-    for (int i = 0; i < DC.Layouts.Data.Size; i++)
+    // TODO: understand what's going on here :)
+    for (int i = 0; i < g.Windows[0]->DC.Layouts.Data.Size; i++)
     {
-        ImGuiLayout* layout = (ImGuiLayout*)DC.Layouts.Data[i].val_p;
+        ImGuiLayout* layout = (ImGuiLayout*)g.Windows[0]->DC.Layouts.Data[i].val_p;
         IM_DELETE(layout);
     }
     // While most behaved code would make an effort to not steal active id during window move/drag operations,
